@@ -6,9 +6,9 @@
     Here, you can:<br/>
     <ol>
     <li><a @click="create" href="">Create</a> LeverNFT and HedgeNFT by splitting BCH</li>
-    <li>Query one or more NFTs' detailed information</li>
-    <li>List the tokens owned by yourself</li>
-    <li>Operate one of your tokens</li>
+    <li><a @click="query" href="">Query</a> a NFT's detailed information</li>
+    <li><a @click="mytokens" href="">List the tokens</a> owned by yourself</li>
+    <li><a @click="operate" href="">Operate</a> one of your tokens</li>
     </ol>
   </div>
 </template>
@@ -19,6 +19,15 @@ export default {
   methods: {
     create() {
       this.$router.push('create');
+    },
+    query() {
+      this.$router.push('query');
+    },
+    mytokens() {
+      this.$router.push('mytokens');
+    },
+    operate() {
+      this.$router.push('operate');
     }
   }
 }
