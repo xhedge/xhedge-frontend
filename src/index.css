@@ -7,6 +7,29 @@
   margin-top: 60px;
 }
 
+.router-link-active,
+.router-link-exact-active {
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.userinput {
+    font-size:20px;
+    width: 520px;
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: #3f8ed1;
+}
+
+.usertextarea {
+    font-size:20px;
+    width: 520px;
+    border-radius: 5px;
+    border-color: #3f8ed1;
+}
+
 .normal {
    width: 1000px;
    margin: auto;
