@@ -107,7 +107,10 @@ async function listTokensOf(myAddr) {
 	for (let value of tokenMap.values()) {
 		tokenList.push(value)
 	}
-	console.log("tokenList", tokenList)
+	console.log("tokenList", tokenList, tokenList.length)
+        if(tokenList.length == 0) {
+          alert("No token was found!")
+        }
 	return tokenList
 }
 
@@ -128,7 +131,7 @@ export default {
 	return
       }
       try {
-        const myAddr = ethers.utils.getAddress(this.addr)
+        var myAddr = ethers.utils.getAddress(this.addr)
       } catch(e) {
         alert("Invalid Address: "+this.addr)
 	return

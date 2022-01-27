@@ -15,7 +15,7 @@
    <tr><td>Mature Time</td>
    <td><input class="userinput" v-model="matureTime" type="datetime-local"></td></tr>
    <tr><td>The Supported Validator</td>
-   <td><input class="userinput" v-model="validatorToVote" type="text" placeholder="Please enter an address in HEX format"></td></tr>
+   <td><input class="userinput" v-model="validatorToVote" type="text" placeholder="Please enter a pubkey in HEX format"></td></tr>
    <tr><td>BCH Price Oracle</td>
    <td><input class="userinput" v-model="oracle" type="text" placeholder="Please enter an address in HEX format"></td></tr>
    </table>
@@ -40,7 +40,7 @@ export default {
       minCollateralRate: 0.3,
       closeoutPenalty: 0.05,
       matureTime: 0,
-      validatorToVote: "0x5637c9fbFf9FAf5f534d0a88199feCD97357635B",
+      validatorToVote: "",
       oracle: "0xD8041620b4fBD6B0630e4a9104cD2A6Af68e216A",
     }
   },
@@ -80,12 +80,10 @@ export default {
         alert("Invalid Price Oracle: ", this.oracle)
 	return
       }
-      var validatorAddr32
       try {
-        const validatorAddr = ethers.utils.getAddress(this.validatorToVote)
-        validatorAddr32 = ethers.utils.hexZeroPad(validatorAddr, 32)
+        var validator32 = ethers.utils.hexZeroPad(this.validatorToVote, 32)
       } catch(e) {
-        alert("Invalid Address: ", this.validatorToVote)
+        alert("Invalid Validator Pubkey: ", this.validatorToVote)
 	return
       }
       const tenPow18 = ethers.BigNumber.from(10).pow(18)
@@ -95,7 +93,7 @@ export default {
       
       const signer = provider.getSigner()
       const xhedgeContract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await xhedgeContract.createVaultPacked(a, validatorAddr32, b, {value: value})
+      await xhedgeContract.createVaultPacked(a, validator32, b, {value: value})
     },
   },
   async mounted() {

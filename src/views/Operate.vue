@@ -46,50 +46,67 @@ export default {
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
       const sn = this.tokenId >> 1
-      const newAmount = ethers.utils.parseUnits(this.bchAmount)
+      const vault = await contract.loadVault(sn)
       var value = ethers.BigNumber.from(0)
-      const vault = await contract.loadVault(value.sn)
+      const newAmount = ethers.utils.parseUnits(this.bchAmount.toString())
       if(vault.amount.lt(newAmount)) {
         value = newAmount.sub(vault.amount)
       }
-      await contract.changeAmount(sn, newAmount, {value: value})
+      try {
+        await contract.changeAmount(sn, newAmount, {value: value})
+      } catch(e) {
+        alert(e.data.message)
+      }
     },
     async liquidate() {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await contract.liquidate(this.tokenId)
+      try {
+        await contract.liquidate(this.tokenId)
+      } catch(e) {
+        alert(e.data.message)
+      }
     },
     async closeout() {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await contract.closeout(this.tokenId)
+      try {
+        await contract.closeout(this.tokenId)
+      } catch(e) {
+        alert(e.data.message)
+      }
     },
     async burn() {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await contract.burn(this.tokenId>>1)
+      try {
+        await contract.burn(this.tokenId>>1)
+      } catch(e) {
+        alert(e.data.message)
+      }
     },
     async vote() {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await contract.vote(this.tokenId>>1)
+      try {
+        await contract.vote(this.tokenId>>1)
+      } catch(e) {
+        alert(e.data.message)
+      }
     },
     async changeVal() {
-      var newVal
-      try {
-        newVal = ethers.utils.getAddress(this.newVal)
-      } catch(e) {
-        alert("Invalid Address: "+this.newVal)
-	return
-      }
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await contract.changeValidatorToVote(this.tokenId, newVal)
+      try {
+        await contract.changeValidatorToVote(this.tokenId, this.newVal)
+      } catch(e) {
+        alert(e.data.message)
+      }
     },
     async transfer() {
       var newOwner
@@ -103,56 +120,11 @@ export default {
       const signer = provider.getSigner()
       const contract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
       const from = await signer.getAddress()
-      await contract.transferFrom(from, newOwner, this.tokenId)
-    },
-    async submit() {
-      const initCollateralRate = ethers.utils.parseUnits(this.initCollateralRate.toString())
-      const minCollateralRate = ethers.utils.parseUnits(this.minCollateralRate.toString())
-      const closeoutPenalty = ethers.utils.parseUnits(this.closeoutPenalty.toString())
-      console.log(this.matureTime)
-      console.log((new Date(this.matureTime)))
-      const matureTimestamp = Math.floor((new Date(this.matureTime)).getTime() / 1000)
-      const twoPow64 = ethers.BigNumber.from(2).pow(64)
-      var a = initCollateralRate
-      a = a.mul(twoPow64).add(minCollateralRate)
-      a = a.mul(twoPow64).add(closeoutPenalty)
-      a = a.mul(twoPow64).add(matureTimestamp)
-      const twoPow160 = ethers.BigNumber.from(2).pow(160)
-      const hedgeValue = ethers.utils.parseUnits(this.hedgeValue.toString())
-      var b = hedgeValue.mul(twoPow160)
-      var oracleAddr
       try {
-        oracleAddr = ethers.utils.getAddress(this.oracle)
-        b = b.add(ethers.BigNumber.from(oracleAddr))
+        await contract.transferFrom(from, newOwner, this.tokenId)
       } catch(e) {
-        alert("Invalid Address: ", this.oracle)
-	return
+        alert(e.data.message)
       }
-      var price
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const oracleContract = new ethers.Contract(oracleAddr, PriceOracleABI, provider)
-      try {
-        price = ethers.BigNumber.from(await oracleContract.getPrice())
-      } catch(e) {
-        alert("Invalid Price Oracle: ", this.oracle)
-	return
-      }
-      var validatorAddr32
-      try {
-        const validatorAddr = ethers.utils.getAddress(this.validatorToVote)
-        validatorAddr32 = ethers.utils.hexZeroPad(validatorAddr, 32)
-      } catch(e) {
-        alert("Invalid Address: ", this.validatorToVote)
-	return
-      }
-      const tenPow18 = ethers.BigNumber.from(10).pow(18)
-      var value = (tenPow18.add(initCollateralRate)).mul(hedgeValue).mul(ethers.BigNumber.from(110)) // 10% margin
-      var div = ethers.BigNumber.from(100).mul(price)
-      value = value.div(div)
-      
-      const signer = provider.getSigner()
-      const xhedgeContract = new ethers.Contract(XHedgeAddress, XHedgeABI, provider).connect(signer)
-      await xhedgeContract.createVaultPacked(a, validatorAddr32, b, {value: value})
     },
   },
   mounted() {

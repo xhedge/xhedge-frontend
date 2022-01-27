@@ -22,10 +22,11 @@ window.XHedgeABI = [
 "function transferFrom(address from, address to, uint256 tokenId) public",
 ]
 
-window.XHedgeAddress = "0x943813044111788d5dbC340bEE95f3616cfac8d3"
+window.XHedgeAddress = "0xbE52Fa565f320BFd5AbD106B4CcA239B0FF0cab6"
 
 window.PriceOracleABI = [
-"function getPrice() external view returns (uint)"
+"function getPrice() external view returns (uint)",
+"function setPrice(uint _price) external",
 ]
 
 async function connectWallet() {

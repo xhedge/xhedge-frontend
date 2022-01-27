@@ -10,11 +10,11 @@
     <p>&nbsp;&nbsp;4.&nbsp;<a @click="operate" href="">Operate</a> one of your tokens</p>
     <p>This is a <a href="https://www.puredapp.org">Pure DApp</a>, which means its contract code and front-end code are both opensource and anyone can deploy them at anywhere.</p>
     <p><b>CAVEAT:</b> This is an opensource software. It is provided “as is”, without warranty of any kind. Please use it <b>AT YOUR OWN RISK</b>.</p>
+    <!--
     <p><button @click="deployLogic">deployLogic</button></p>
     <p><button @click="deployMockOrcale">deployMockOrcale</button></p>
-    <p><button @click="changePrice">changePrice</button></p>
-    <!--
     -->
+    <p><button @click="changePrice">Change Oracle's Price (debug)</button></p>
     
   </div>
 </template>
@@ -57,13 +57,11 @@ export default {
       }
     },
     async changePrice() {
-      const abi = ["function setPrice(uint _price) external", "function getPrice() external view returns (uint)"];
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
-      const priceContract = new ethers.Contract(MockOracleAddress, abi, provider).connect(signer)
+      const priceContract = new ethers.Contract(MockOracleAddress, PriceOracleABI, provider).connect(signer)
       const oldPrice = await priceContract.getPrice()
-      console.log("oldPrice", ethers.utils.formatUnits(oldPrice))
-      const price = prompt("Please enter the new price:")
+      const price = prompt("The old prime is "+ethers.utils.formatUnits(oldPrice)+".Please enter the new price:")
       if(price) {
         await priceContract.setPrice(ethers.utils.parseUnits(price.toString()))
       }
