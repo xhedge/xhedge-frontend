@@ -92,8 +92,9 @@ async function listTokensOf(myAddr) {
 		value.oracle = vault.oracle
 		value.closeoutPenalty = ethers.utils.formatUnits(vault.closeoutPenalty)
 		value.amount = ethers.utils.formatUnits(vault.amount)
-		var tmp = ethers.utils.hexZeroPad(vault.validatorToVote.toHexString(), 20)
-		value.validatorToVote = ethers.utils.getAddress(tmp)
+		console.log('pubkey', vault.validatorToVote.toHexString())
+		var tmp = ethers.utils.hexZeroPad(vault.validatorToVote.toHexString(), 32)
+		value.validatorToVote = tmp//ethers.utils.getAddress(tmp)
 		if(value.hasLeverNFT && value.hasHedgeNFT) {
 			value.nftInfo = `${value.sn*2+1}(LeverNFT) and ${value.sn*2}(HedgeNFT)`
 		} else if(value.hasLeverNFT) {
