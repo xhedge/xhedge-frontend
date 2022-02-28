@@ -22,7 +22,7 @@ window.XHedgeABI = [
 "function transferFrom(address from, address to, uint256 tokenId) public",
 ]
 
-window.XHedgeAddress = "0xbE52Fa565f320BFd5AbD106B4CcA239B0FF0cab6"
+window.XHedgeAddress = "0x943F4002b68365fCC8F62eC65c3003aEcd391c0e"
 
 window.PriceOracleABI = [
 "function getPrice() external view returns (uint)",
