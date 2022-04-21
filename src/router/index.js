@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Create from '../views/Create.vue'
 import MyTokens from '../views/MyTokens.vue'
 import Operate from '../views/Operate.vue'
+import Validators from '../views/Validators.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/operate',
     name: 'Operate',
     component: Operate
+  },
+  {
+    path: '/validators',
+    name: 'Validators',
+    component: Validators
   }
 ]
 
