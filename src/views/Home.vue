@@ -14,7 +14,7 @@
     <p><button @click="deployLogic">deployLogic</button></p>
     <p><button @click="deployMockOrcale">deployMockOrcale</button></p>
     -->
-    <p><button @click="changePrice">Change Oracle's Price (debug)</button></p>
+    <!-- <p><button @click="changePrice">Change Oracle's Price (debug)</button></p> -->
     
   </div>
 </template>

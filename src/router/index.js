@@ -4,6 +4,7 @@ import Create from '../views/Create.vue'
 import MyTokens from '../views/MyTokens.vue'
 import Operate from '../views/Operate.vue'
 import Validators from '../views/Validators.vue'
+import Oracle from '../views/Oracle.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/validators',
     name: 'Validators',
     component: Validators
+  },
+  {
+    path: '/oracle',
+    name: 'Oracle',
+    component: Oracle
   }
 ]
 

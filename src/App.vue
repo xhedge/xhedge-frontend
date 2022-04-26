@@ -4,7 +4,8 @@
     <router-link tag="li" to="/create">Create</router-link><span style="color: #EEEEEE"> | </span>
     <router-link tag="li" to="/mytokens">Tokens</router-link><span style="color: #EEEEEE"> | </span>
     <router-link tag="li" to="/operate">Operate</router-link><span style="color: #EEEEEE"> | </span>
-    <router-link tag="li" to="/validators">Validators</router-link>
+    <router-link tag="li" to="/validators">Validators</router-link><span style="color: #EEEEEE"> | </span>
+    <router-link tag="li" to="/oracle">Oracle</router-link>
   </div>
   <router-view v-slot="{ Component }">
   <keep-alive>

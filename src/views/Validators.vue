@@ -42,7 +42,7 @@
 async function getValidators() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
-    url    : 'http://13.214.157.111:8545',
+    url    : 'https://rpc.uatvo.com',
     timeout: 2000,
   });
 
