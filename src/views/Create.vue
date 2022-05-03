@@ -87,7 +87,7 @@ export default {
 	return
       }
       const tenPow18 = ethers.BigNumber.from(10).pow(18)
-      var value = (tenPow18.add(initCollateralRate)).mul(hedgeValue).mul(ethers.BigNumber.from(110)) // 10% margin
+      var value = (tenPow18.add(initCollateralRate)).mul(hedgeValue).mul(ethers.BigNumber.from(101)) // 1% margin
       var div = ethers.BigNumber.from(100).mul(price)
       value = value.div(div)
       
