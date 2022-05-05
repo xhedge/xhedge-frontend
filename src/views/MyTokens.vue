@@ -19,6 +19,7 @@
     <tr><td>Price Oracle</td><td>{{token.oracle}}</td></tr>
     <tr><td>Hedge Value (in Stable Coin)&nbsp;&nbsp;</td><td>{{token.hedgeValue}}</td></tr>
     <tr><td>BCH Amount</td><td>{{token.amount}}</td></tr>
+    <tr><td>CoinDays</td><td>{{token.coinDays}}</td></tr>
     </table>
     <p style="font-size: 8px">&nbsp;</p>
     </template>
@@ -46,6 +47,8 @@ async function listTokensOf(myAddr) {
 	var filter = {address: XHedgeAddress, topics: [Transfer, null/*sender*/, myAddrPad32/*receiver*/]}
 	const STEPS = 50000
 	var toBlock = await provider.getBlockNumber()
+	const now = await provider.getBlock(toBlock).then(b => b.timestamp);
+	console.log('now:', now);
 	while(toBlock > 0) {
 		filter.toBlock = toBlock
 		filter.fromBlock = Math.max(toBlock-STEPS+1, 0)
@@ -102,6 +105,16 @@ async function listTokensOf(myAddr) {
 		} else if(value.hasHedgeNFT) {
 			value.nftInfo = `${value.sn*2}(HedgeNFT)`
 		}
+
+		const elapsed = Math.min(now - vault.lastVoteTime, 14 * 24 * 3600);
+		const coinDays = value.amount * elapsed / (24 * 3600);
+		console.log('elapsed:', elapsed, 'coinDays:', coinDays);
+		if (value.hasLeverNFT) {
+			value.coinDays = coinDays;
+		} else {
+			value.coinDays = 0;
+		}
+
 		tokenMap.set(key, value)
 	}
 	var tokenList = []
