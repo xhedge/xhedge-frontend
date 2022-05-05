@@ -2,7 +2,7 @@
   <p style="font-size: 8px">&nbsp;</p>
   <h3 class="subtitle is-3">Oracle</h3>
   <div class="normal">
-   <p>Oracle: 0xfeEf04aFB636fac5b0F91eBAC68C85F88ab260e6</p>
+   <p>Address: <a href="https://www.smartscan.cash/address/0x45e23074777Dc816F5B26fd9eCF6d69c0728dd63">0x45e23074777Dc816F5B26fd9eCF6d69c0728dd63</a></p>
    <p style="text-align: center">
      <button class="button is-info" @click="getOracleInfo" :disabled="isLoading">Refresh</button>
    </p>
@@ -18,7 +18,7 @@
       <th>Min WBCH Reserves</th>
       <th>Moving Average Price</th>
     </tr>
-    <template v-for="(priceInfo, idx) in prices" :keys="priceInfo.addr">
+    <template v-for="(priceInfo, idx) in prices" :key="priceInfo.addr">
       <tr>
         <td>{{priceInfo.addr}}</td>
         <td>{{priceInfo.minR}}</td>
@@ -37,8 +37,8 @@
         <th>{{addr.substring(0, 8) + '..'}}</th>
       </template>
     </tr>
-    <template v-for="(observation, idx) in observations" :keys="observation.epoch">
-     <tr>
+    <template v-for="(observation, idx) in observations" :key="observation.epoch">
+     <tr :class="{'highlight': (idx == currEpoch)}">
        <td>{{observation.epoch}}</td>
        <td>{{observation.lastUpdatedTime}}</td>
        <template v-for="(pair, idx) in observation.pairs">
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-const oracleAddr = '0xfeEf04aFB636fac5b0F91eBAC68C85F88ab260e6';
+const oracleAddr = '0x45e23074777Dc816F5B26fd9eCF6d69c0728dd63';
 const oracleABI = `[
   {
     "inputs": [
@@ -277,6 +277,10 @@ const oracleABI = `[
   }
 ]`;
 
+const WINDOW_SIZE = 12 * 3600;
+const GRANULARITY = 24;
+const PERIOD_SIZE = 30 * 60;
+
 async function loadPairs() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
@@ -285,10 +289,10 @@ async function loadPairs() {
   });
 
   const oracle = new ethers.Contract( oracleAddr , oracleABI , provider );
-  // const ts = await provider.getBlock('latest').then(b => b.timestamp);
+  const ts = await provider.getBlock('latest').then(b => b.timestamp);
   const pairs = await oracle.getPairs();
   // console.log(pairs);
-  return [oracle, pairs];
+  return [oracle, pairs, ts];
 }
 
 function toObservations(pairs) {
@@ -350,6 +354,7 @@ export default {
       addr: "",
       isLoading: false,
       latestPrice: 0,
+      currEpoch: 0,
       observations: [],
       pairAddrs: [],
       prices: [],
@@ -362,8 +367,11 @@ export default {
     async getOracleInfo() {
       this.isLoading = true
 
-      const [oracle, pairs] = await loadPairs();
-      this.latestPrice = await oracle.getPrice().catch(err => 0);
+      const [oracle, pairs, ts] = await loadPairs();
+      this.currEpoch = Math.floor(ts / PERIOD_SIZE) % GRANULARITY;
+      this.latestPrice = await oracle.getPrice()
+        .then(p => bn18ToNum(p).toFixed(2))
+        .catch(err => 0);
       this.prices = await toPrices(oracle, pairs);
       this.observations = toObservations(pairs);
       if (this.observations.length > 0) {

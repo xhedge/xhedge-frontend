@@ -41,7 +41,7 @@ export default {
       closeoutPenalty: 0.05,
       matureTime: 0,
       validatorToVote: "",
-      oracle: "0xfeEf04aFB636fac5b0F91eBAC68C85F88ab260e6",
+      oracle: "0x45e23074777Dc816F5B26fd9eCF6d69c0728dd63",
     }
   },
   methods: {
