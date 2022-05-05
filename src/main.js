@@ -20,6 +20,8 @@ window.XHedgeABI = [
 "function vote(uint sn) external",
 "function loadVault(uint sn) public view returns (tuple(uint64 initCollateralRate, uint64 minCollateralRate, uint64 matureTime, uint64 lastVoteTime, uint validatorToVote, uint96 hedgeValue, address oracle, uint64 closeoutPenalty, uint96 amount) vault)",
 "function transferFrom(address from, address to, uint256 tokenId) public",
+"function validators(uint256 idx) public view returns (uint256)",
+"function valToVotes(uint256 val) public view returns (uint256)",
 ]
 
 window.XHedgeAddress = "0x11e34Ee274929d607E06C5e49bB0dc26Ca920BF2" // mainnet v0.4.4
