@@ -285,7 +285,7 @@ async function loadPairs() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
     // url    : 'https://rpc.uatvo.com',
-    url    : 'http://13.214.157.111:8545',
+    url    : 'https://smartbch.fountainhead.cash/mainnet',
     timeout: 5000,
   });
 
