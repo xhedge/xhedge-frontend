@@ -1,6 +1,6 @@
 <template>
   <p style="font-size: 8px">&nbsp;</p>
-  <h3 class="subtitle is-3">Oracle</h3>
+  <h4 class="subtitle is-3">Oracle</h4>
   <div class="normal">
    <p>Address: <a href="https://www.smartscan.cash/address/0x45e23074777Dc816F5B26fd9eCF6d69c0728dd63">0x45e23074777Dc816F5B26fd9eCF6d69c0728dd63</a></p>
    <p style="text-align: center">
@@ -284,7 +284,8 @@ const PERIOD_SIZE = 30 * 60;
 async function loadPairs() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
-    url    : 'https://rpc.uatvo.com',
+    // url    : 'https://rpc.uatvo.com',
+    url    : 'http://13.214.157.111:8545',
     timeout: 5000,
   });
 

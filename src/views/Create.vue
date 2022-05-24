@@ -1,8 +1,10 @@
 <template>
   <p style="font-size: 8px">&nbsp;</p>
-  <h3 class="subtitle is-3">Create LeverNFT&HedgeNFT</h3>
+  <h4 class="subtitle is-3">Create LeverNFT&HedgeNFT</h4>
   <div class="normal">
-    You can lock some BCHs into XHedge and get one LeverNFT and one HedgeNFT. The BCH value held in the LeverNFT will anchor to a fixed amount of USD, while the BCH value held in the HedgeNFT is floating.<br/>
+    You can lock some BCHs into XHedge and get one LeverNFT and one HedgeNFT. 
+    The BCH value held in the HedgeNFT will anchor to a fixed amount of USD, 
+    while the BCH value held in the LeverNFT is floating.<br/>
    <table style="margin: auto">
    <tr><td>Fixed USD Value in HedgeNFT&nbsp;&nbsp;</td>
    <td><input class="userinput" v-model="hedgeValue" type="text" placeholder="Please enter a number such as 9.8"></td></tr>

@@ -1,6 +1,6 @@
 <template>
   <p style="font-size: 8px">&nbsp;</p>
-  <h3 class="subtitle is-3">Operate My NFT</h3>
+  <h4 class="subtitle is-3">Operate My NFT</h4>
   <div class="normal">
    <p style="text-align: center">The operated NFT: <input class="userinput" v-model="tokenId" type="number" placeholder="Please enter the ID of you LeverNFT or HedgeNFT"></p>
    <br/>

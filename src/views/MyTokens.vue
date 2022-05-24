@@ -1,6 +1,6 @@
 <template>
   <p style="font-size: 8px">&nbsp;</p>
-  <h3 class="subtitle is-3">List tokens</h3>
+  <h4 class="subtitle is-3">List tokens</h4>
   <div class="normal">
    <p style="text-align: center">
    <button class="button is-info" @click="list" :disabled="isListing">List tokens owned by:</button>&nbsp;

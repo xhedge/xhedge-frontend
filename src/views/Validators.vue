@@ -1,6 +1,6 @@
 <template>
   <p style="font-size: 8px">&nbsp;</p>
-  <h3 class="subtitle is-3">List Validators</h3>
+  <h4 class="subtitle is-3">List Validators</h4>
   <div class="normal">
    <p style="text-align: center">
      <button class="button is-info" @click="getAllValidators" :disabled="isListing">List Validators</button>
@@ -52,8 +52,9 @@
 async function getAllValidators() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
-    url    : 'https://rpc.uatvo.com',
-    timeout: 2000,
+    // url    : 'https://rpc.uatvo.com',
+    url    : 'http://13.214.157.111:8545',
+    timeout: 5000,
   });
 
   return await provider.send('sbch_validatorsInfo', []);
@@ -62,8 +63,9 @@ async function getAllValidators() {
 async function getPosVotes() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
-    url    : 'https://rpc.uatvo.com',
-    timeout: 2000,
+    // url    : 'https://rpc.uatvo.com',
+    url    : 'http://13.214.157.111:8545',
+    timeout: 5000,
   });
   const xhedge = new ethers.Contract(XHedgeAddress, XHedgeABI, provider);
 

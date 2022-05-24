@@ -1,6 +1,6 @@
 <template>
   <p style="font-size: 8px">&nbsp;</p>
-  <h3 class="subtitle is-3">Pure DApp for XHedge</h3>
+  <h4 class="subtitle is-3">Pure DApp for XHedge</h4>
   <div class="normal">
     XHedge is a smart contract which can split BCH into LeverNFT and HedgeNFT. It also supports the LeverDay PoS scheme to allow validator election by coin-days.<br/>
     Here, you can:<br/>
