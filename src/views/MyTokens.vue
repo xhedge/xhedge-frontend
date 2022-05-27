@@ -45,7 +45,7 @@ async function listTokensOf(myAddr) {
 	const myAddrPad32 = ethers.utils.hexZeroPad(myAddr, 32)
 	var tokenIdList = []
 	var filter = {address: XHedgeAddress, topics: [Transfer, null/*sender*/, myAddrPad32/*receiver*/]}
-	const STEPS = 50000
+	const STEPS = 900000
 	var toBlock = await provider.getBlockNumber()
 	const now = await provider.getBlock(toBlock).then(b => b.timestamp);
 	console.log('now:', now);
