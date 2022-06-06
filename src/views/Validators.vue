@@ -49,24 +49,24 @@
 </template>
 
 <script>
-async function getAllValidators() {
+function createJsonRpcProvider() {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
   const provider = new ethers.providers.JsonRpcProvider({
     // url    : 'https://rpc.uatvo.com',
-    url    : 'https://smartbch.fountainhead.cash/mainnet',
+    // url    : 'https://smartbch.fountainhead.cash/mainnet',
+    url    : 'https://global.uat.cash',
     timeout: 5000,
   });
+  return provider; 
+}
 
+async function getAllValidators() {
+  const provider = createJsonRpcProvider();
   return await provider.send('sbch_validatorsInfo', []);
 }
 
 async function getPosVotes() {
-  // const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const provider = new ethers.providers.JsonRpcProvider({
-    // url    : 'https://rpc.uatvo.com',
-    url    : 'https://smartbch.fountainhead.cash/mainnet',
-    timeout: 5000,
-  });
+  const provider = createJsonRpcProvider();
   const xhedge = new ethers.Contract(XHedgeAddress, XHedgeABI, provider);
 
   const posVotes = [];
